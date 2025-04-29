@@ -3,26 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaflet Tutorial</title>
+    <title>NYC TRANSIT MAP</title>
 
     <!--leaflet css-->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-
+    <link rel="stylesheet" href="leaflet-search-master\dist\leaflet-search.src.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <style> 
         body {
             margin: 0;
             padding: 0;
        font-family: Arial, Helvetica, sans-serif; 
-        
-        
+       
+       
+    #widgetContent h1 {
+  font-size: 30px;
+}
+ 
+
+#image {
+  background-color: black;
+  background-size: cover;       /* Makes sure it covers the whole div */
+  background-position: center;  /* Center the image */
+  background-repeat: no-repeat; /* Don't repeat the image */
+}
+
+
+#infoWidget {
+  background-color: rgb(12, 72, 161);
+  background-size: cove r;       /* Makes sure it covers the whole div */
+  background-position: center;  /* Center the image */
+  background-repeat: no-repeat; /* Don't repeat the image */
+  padding: 20px;
+}
+
+#widgetContent {
+  display: flex;
+  align-items: flex-start;
+  justify-content:space-evenly;
+}     
+
+
+#image img {
+  width: 100px; /* or any size you want */
+  height: auto;
+  position: sticky;
+}
+
+
+        #widgetContent img {
+            width: 25px;
+            height: auto;
+            position: sticky;
         }
-        
+
+
+       #Widget p2 {
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        color: rgb(255, 255, 255);
+        font-weight: 100;
+       }
+       
+       #widgetContent h2 {
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        color: rgb(255, 255, 255);
+        font-size: 24px;
+    }   h1 {
+        font-family: Arial, Helvetica, sans-serif;
+        color: rgb(255, 255, 255);
+    }
+     
+       #Widget  {
+        position: absolute;
+      top: -15px;
+      right: -321px;
+      width: 300px;
+      height: auto;
+      background: red;
+      border: 1px solid #000000;
+      padding: 10px;
+      overflow: hidden;
+      transition: height 0.5s ease;
+      z-index: 1000;
+    }
+
+
+    #Widget.collapsed {
+      height: 0;
+      padding: 0 10px; /* Mostly hidden except maybe a little handle */
+    }
+
+    /* Toggle Button */
+    #toggleButton {
+      position: absolute;
+      top: 0px;
+      right: -157px;
+      background-color: black;
+      color: white;
+      border: black;
+      padding: 0px 7px;
+      cursor:pointer; 
+      z-index: 1100;
+    } 
+
+
+       
         #map {
              width: 100%;
-             height: 700px;
-             margin-top: 100px;
-             margin-bottom: 100px;
+             height: 1000px;
 
         }
 
@@ -33,24 +121,106 @@
         
         }
 
+        .leaflet-popup-content-wrapper{
+           background-color: red;
+           color: whitesmoke; 
+           border: 10px solid ridge;
+           border-style:dashed;
+        }
+
+        .leaflet-tooltip-right:before {
+	    left: 0;
+	    margin-left: -12px;
+	    border-right-color: #000000;
+	    }
+} 
      </style>
 
 </head>
 <body>
-<div id="map">
-</div>  
-    <script>
+    <button id="toggleButton">☰</button>
+    <div id="image" class="collapsed">
 
 
 
-    </script>
+
+
+    </div>
+    <div id="infoWidget" class="collapsed">
+        <div id="widgetContent">
+            <img src="traintrks.png">
+          <h1>The Staten Island Railway:</h1>
+          <h2>With former stations such as Nassau and Atlantic, supplying terracotta for New York Skyscapers, to former ferries connecting to New Jersey; the Staten Island Railway has a storied history. This webmap aims to take you on a journey through the different eras of the railroad; plans for it which never came into fruition; the crumbling remains of its abandoned branches; and the future of the borough's lone railroad.</h2>
+          </div>
+          <ul>
+           <h1>Legend</h1>
+            <p><Legend></Legend></p>
+            <li><span style="color: blue;">South Shore Line</span></li>
+            <li><span style="color: red;">North Shore Branch</span></li>
+            <li><span style="color: green;">South Beach Branch</span></li>
+            <li><span style="color: yellowgreen;">Proposed Staten Island Subway Connetion</span></li>
+            <li><span style="color: palevioletred;">Proposed NJT Light Rail Connection</span></li>
+            <li><span style="color: aquamarine;">Tottenville - Perth Amboy Ferry</span></li>
+            <audio></audio>
+
+          </ul>
+        </div>
+      </div>
+    <div id="image" class="collapsed">
+        <div class="image-row">
+            <img src="Staten-Island-Railway.png" alt="First Image">
+            <img src="Staten-Island-Railway.png" alt="Second Image">
+            <img src="Staten-Island-Railway.png" alt="First Image">
+            <img src="Staten-Island-Railway.png" alt="Second Image">
+            <img src="Staten-Island-Railway.png" alt="First Image">
+            <img src="Staten-Island-Railway.png" alt="Second Image">
+            <img src="Staten-Island-Railway.png" alt="First Image">
+            <img src="Staten-Island-Railway.png" alt="Second Image">
+            <img src="Staten-Island-Railway.png" alt="First Image">
+            <img src="Staten-Island-Railway.png" alt="Second Image">
+            <img src="Staten-Island-Railway.png" alt="First Image">
+            <img src="Staten-Island-Railway.png" alt="Second Image">
+            <img src="Staten-Island-Railway.png" alt="First Image">
+            <img src="Staten-Island-Railway.png" alt="Second Image">
+            <img src="Staten-Island-Railway.png" alt="First Image">
+            <img src="Staten-Island-Railway.png" alt="Second Image">
+            <img src="Staten-Island-Railway.png" alt="First Image">
+            <img src="Staten-Island-Railway.png" alt="Second Image">
+          </div>   
+    </div>    
+    <div id="Widget" class="collapsed">
+        <h2>Sources</h2>
+        <p2>
+         <li><span style="color: azure;">Railway Labor Executives' Ass'n v. Staten Island Railroad (No. 86-476), SCOTUS</span></li>
+         <li><span style="color: azure;">CITY AND SUBURBAN NEWS; NEW-YORK. BROOKLYN. LONG ISLAND. STATEN ISLAND. NEW-JERSEY, New York Times, 1984.</span></li> 
+         <li><span style="color: azure;">History Of Staten Island Railway, Third Rail Online, 2002.</span></li>
+         <li><span style="color: azure;">SIRT Rapid Transit, nycsubway.org</span></li>
+        
+        
+        </p2>
+         <h2><span style="color: blue;" ></span>Scenes From The SIR</h2> 
+         <img src="stgeorgestation.jpg" style='width:300px; height:auto;' alt="St George Terminal (1920s)"/>
+         <img src="mt-loretto.jpg" style="width: 300px; height: auto;"/>
+         <img src="donovan_front.jpg" style="width: 300px; height: auto;"/>
+         <img src="greatkills.jpg" style="width: 300px; height: auto;"/>
+         <img src="img_22047.jpg" style="width: 300px; height: auto;"/> 
+         <img src="img_21973.jpg" style="width: 300px; height: auto;"/>              
+         <img src="tottenvilletrain.jpg" style="width: 230px; height: auto;"/>
+    </div>
+    <div id="map">
+</body>
+<body>
+
+    
+
     
 </body>
-
 
 </html>
 
 <!--leaflet js-->
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<script src="leaflet-search-master\dist\leaflet-search.src.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="BOROUGH.js"></script>
 <script src="brooklyn.js"></script>
@@ -61,21 +231,341 @@
 <script src="proj4.js"></script>
 <script src="proj4leaflet.js"></script>
 <script src="logog.png"></script>
-<script src="styles.css"></script>
-
+<script src="iconS.png"></script>
+<script src="Subway_Stations.js"></script>
+<script src="ICON2.png"></script>
+<script src="legend2.png"></script>
+<script src="maintrainsithub.png"></script>
+<script src="st_george1.jpg"></script>
+<script src="eltingville1.jpg"></script>
+<script src="tottenville2.jpg"></script>
+<script src="Staten-Island-Railway.png"></script>
+<script src="richmond_valley7.jpg"></script>
+<script src="1984-07-006-L.jpg"></script>
+<script src="clifton.jpg"></script>
+<script src="bachmans.jpg"></script>
+<script src="rosebank.jpg"></script>
+<script src="belair.jpg"></script>
+<script src="wadsworth.jpg"></script>
+<script src="arrochar.jpg"></script>
+<script src="cedar.jpg"></script>
+<script src="SouthBeach.jpg"></script>
+<script src="wentworth.jpg"></script>
+<script src="legendfinal.png"></script>
+<script src="legend.svg"></script>
+<script src="northshorestations.js"></script>
+<script src="StatenIslandTunnel.jpg"></script>
+<script src="njtstations.js"></script>
+<script src="Nassau_Station.jpg"></script>
+<script src="atlantic16.jpg"></script>
+<script src="index.jpg"></script>
+<script src="ridesramblesonst00camp_0010.jpg"></script>
+<script src="perthamboyferry.jpg"></script>
+<script src="traintrks.png"></script>
+<script src="trcks.png"></script>
+<script src="stgeorgestation.jpg"></script>
+<script src="lorreto.jpg"></script>
+<script src="mt-loretto.jpg"></script>
+<script src="donovan_front.jpg"></script>
+<script src="greatkills.jpg"></script>
+<script src="img_22047.jpg"></script>
+<script src="img_21973.jpg"></script>
+<script src="tottenvilletrain.jpg"></script>
+<script src="sirlogo.png"></script>
 <script>
-    // Map Intialization
-    var map = L.map('map').setView([40.7128, -74.0060], 13);
-    var BOROUGH = L.geoJSON(BOROUGH).bindPopup('Staten Island, NYC').addTo(map);
-    var BROOKLYN = L.geoJSON(brooklyn).bindPopup('Brooklyn, NYC').addTo(map);
-    var bronx = L.geoJSON(bronx).bindPopup('Bronx, NYC').addTo(map);
-    var queens = L.geoJSON(queens).bindPopup('Queens, NYC').addTo(map);
-    var manhattan = L.geoJSON(manhattan).bindPopup('Manhattan, NYC').addTo(map);
+
+
+
+
+
+
+
+
+// Map Intialization
+    var map = L.map('map', {
+        zoomSnap: 0.25,
+        dragging: true,
+        scrollWheelZoom: "center",    
+    
+    }).setView([40.5795, -74.1502], 11);
+
+    L.control.scale({ 
+        metric: true,
+        imperial: true,
+        maxWidth: 100,
+        position: 'bottomleft' 
+
+
+
+
+     }).addTo(map);   
+    
+    
+    var toggleButton = document.getElementById('toggleButton');
+    var widget = document.getElementById('Widget');
+
+    toggleButton.addEventListener('click', function () {
+      widget.classList.toggle('collapsed');
+    });
+
+
+    var icon3 = L.icon({
+        iconUrl: 'iconS.png',
+        iconSize: [8,8],
+    });
+    var icon4 = L.icon({
+        iconUrl:'maintrainsithub.png',
+        iconSize: [15,15],
+    });  
+//cordsforpolylines
+    var lineCords = [[40.643333, -74.074167],
+    [40.6368, -74.0748], [40.627889, -74.075139], 
+    [40.6215, -74.0715], [40.60347, -74.08378], 
+    [40.5964, -74.0875], [40.589, -74.0959],
+    [40.5838, -74.103], [40.5793, -74.1093],
+    [40.5736, -74.1171], [40.5647, -74.1269],
+    [40.55658, -74.13663], [40.55125, -74.15132],
+    [40.5444, -74.1651], [40.54043, -74.1784],
+    [40.5336, -74.1919], [40.5254, -74.2003],
+    [40.5224, -74.2179], [40.5196, -74.2293],
+    [40.5168, -74.2416], [40.5125, -74.2523],
+];
+
+    var lineCords2 = [[40.643333, -74.074167],
+    [40.6452, -74.0773],[40.646439, -74.078810
+
+], [40.645494, -74.092889], [40.644813, -74.096020],[40.644657, -74.098447],[40.6453, -74.1017],[40.64545, -74.1088],[40.6415, -74.1173],[40.6391, -74.1311],[40.6387, -74.1373],[40.6351, -74.1456],[40.6341, -74.1511],[40.6339, -74.1552],[40.6338, -74.1601],[40.6335, -74.1661]];
+
+
+var lineCords3 = [[40.621319,-74.071402],[40.616667, -74.071667],
+[40.614639, -74.070278], [40.610278, -74.067222], [40.606972, -74.066472],[40.606972, -74.066472],
+[40.599722, -74.066528], [40.596583, -74.065639], [40.590972, -74.067639],[40.589028, -74.069861], 
+];    
+
+var lineCords4 = [[40.641389, -74.017778],[40.616167, -74.031222], [40.606972, -74.066472]];
+
+var lineCords5 = [[40.5168,-74.2416], [40.534520, -74.204058], [40.534395, -74.193035], [40.545753, -74.178871
+], [40.547441, -74.174953], [40.5606, -74.1712], [40.579496, -74.169231], [40.593050, -74.162401], [40.607152, -74.162053
+
+], [40.608745, -74.153815], [40.624968, -74.145861], [40.630619, -74.144066], [40.654458, -74.129097]];
+
+var ferrcords = [[40.5125, -74.2523], [40.506944, -74.261944]];
+
+//search 
+
+//tooltip
+var tooltip = L.tooltip().setLatLng(
+    [40.5838, -74.103], [40.5793, -74.1093],
+    [40.5736, -74.1171], [40.5647, -74.1269],
+    [40.55658, -74.13663], [40.55125, -74.15132],).setContent('<p>South Shore Mainline (Active)</p>').addTo(map);
+
+var tooltip2 = L.tooltip().setLatLng([40.644657, -74.098447]).setContent('<p>North Shore Branch (Inactive)</p>').addTo(map);
+
+var tooltip3 = L.tooltip().setLatLng([40.596583, -74.065639]).setContent('<p>South Beach Branch (Inactive)</p>').addTo(map);
+
+var tooltip4 = L.tooltip().setLatLng([40.616167, -74.031222]).setContent('<p>Cancelled Staten Island Subway</p>').addTo(map);
+
+var tooltip5 = L.tooltip().setLatLng([40.579496, -74.169231]).setContent('<p>Proposed 2000s NJT Light Rail Expansion to SI</p>').addTo(map);
+// Create a polyline with the collected coordinates
+var subwayLine = L.polyline(lineCords, {
+    color: 'blue',
+    weight: 7,
+    opacity: 0.7,
+    smoothFactor: 1,
+}).addTo(map).bindPopup("<h1>Proposed Staten Island Subway By The BMT (1920s - 1940s)</h1> <p>sdfsdf</p>")
+
+subwayLine.on('click', function(e) {
+    this.openPopup();
+});
+ var subwayline2 = L.polyline(lineCords2, {
+    color: 'red',
+    weight: 7,
+    opacity: 1,
+    smoothFactor: 1
+ }).addTo(map);
+var subwayline3 = L.polyline(lineCords3, {
+    color: 'green',
+    weight: 7,
+    opacity: 1,
+    smoothFactor: 1
+}).addTo(map);
+
+var subwayline4 = L.polyline(lineCords4, {
+    color: "yellow",
+    weight: 7,
+    opacity: 1,
+    smoothFactor: 1
+}).addTo(map);
+
+var subwayLine5 = L.polyline(lineCords5, {
+    color: "#b53a86",
+    weight: 7,
+    opacity: 1,
+    smoothFactor: 1
+}).addTo(map);
+ 
+var ferryline = L.polyline(ferrcords, {
+    color: "#1ed9cf",
+    weight: 7,
+    opacity: 1,
+    smoothFactor: 1
+}).addTo(map)
+
+var SI_color = {
+        color: "black",
+        fillColor: "white",
+        fillOpacity: 0.1
+    }
+
+   var perthferrymarker = L.marker([40.509412, -74.257767]).addTo(map).bindPopup("<h1>History Of the Perth Amboy Ferry:</h1> <p2>The Perth Amboy Ferry was originally a route of the Lenape Indians, who traveled between <b>Perth Amboy New Jersrey and Staten Island</b> as early as 1684. Regular ferry service began in 1704, with service terminating in 1964, following the completion of the <b>Outer-Bridge Crossing in 1925, causing a decline in ridership</b>. The first offical documented ferryboat, was the <b>Maid of Perth</b> which took its first trip in 1864. The last ferryboat was <b>The Charles Galloway</b> which ran from 1948 to the lines closure in 1964. The Perth Amboy Slip was added to the National Registry of Historic Places in 1978, and was restored to its original state in 1998, to its 1904 appearance. The slip now serves as a local area for event, as well as a museum. <img src ='perthamboyferry.jpg' style='width:300px; height:auto;'/>'");
+   
+   
+    var sisubwaymarker = L.marker([40.616167, -74.031222], {
+        title: 'BMT Proposed Staten Island Subway'
+    }).addTo(map).bindPopup("<h1>The 1920s Plan To Connect Staten Island</h1> <p>The plan for a subway connection into Staten Island dates back to the 1890's. Plans ranged from connecting Staten Island directly with Manhattan, to various Brooklyn Connections; <b>in 1912 the BMT's idea of connecting the North Shore line with the 4th Avenue Line in Bay Ridge (now known as the R train), was approved</b>. The route for this plan was designated as 051, which is used today to identify the SIR Mainline within the MTA. The beginning of the end for this project was the reluctance of Mayor John F Hylan to construct this rail tunnel, despite him pushing for it during his electoral campagin. Despite this reluctance, <b>in 1923 a commencement ceremony was held marking the start of construction for the Narrows tunnel.</b></b> In addition to passenger service, the tunnel was also meant to service freight, ballooning the cost to 60 million dollars (a little over a billion dollars today); it was decided to construct the tunnel as passenger only service, reducing estimated costs to 20 million dollars. However, the Great Depression followed, as well as a subway disaster involving the BRT (Brooklyn Rapid Transit Company), which killed 100 people. <b>The last thoughts for a Staten Island subway was the construction of the Verrazanno's Narrow's Bridge, which was then the largest suspension bridge in the world.</b> Unfortunately, Robert Moses killed that idea, which in turn has killed contemporary plans for a Staten Island Subway. </p> <img src='StatenIslandTunnel.jpg' style='width:300px; height:auto;'/>");
+    
+    var Perth_Amboy = L.marker([40.506944, -74.261944], {
+        title: 'Perth Amboy Ferry',
+        icon:icon4
+    }).addTo(map).bindPopup("<h1>Perth Amboy Ferry (1864 - 1964)<h1> <img src ='index.jpg' style='width:300px; height:auto;'/>");
+    
+    
+    var Atlantic = L.marker([40.51542,-74.2457], {
+        icon:icon4,
+        title: 'Atlantic'
+    }).addTo(map).bindPopup("<h1>Atlantic (1909 - 2017) <img src='atlantic16.jpg' style='width:300px; height:auto;'/>");
+    
+    
+    var Nassau = L.marker([40.5178, -74.2384], {
+        icon:icon4,
+        title: 'Nassau'
+    }).addTo(map).bindPopup("<h1>Nassau (1924 - 2017) <img src='Nassau_Station.jpg' style='width:300px; height:auto;'/>");
+
+
+    var Tottenville = L.marker([40.5125, -74.2523], {
+        icon:icon4,
+        title: 'Tottenville'
+    }).addTo(map).bindPopup("<h1>Tottenville</h1> <p>The end of the SIR Mainline; known for its historical significance to the NY oyster shucking scene, the location of the Conference House (part of American Revolution History), and the old transfer point to the defunct Perth Amboy Ferry.</p> <img src='tottenville2.jpg' style='width:300px; height:auto;'/>")
+    
+    var Eltingville = L.marker([40.544601,-74.16457], {
+        icon:icon4,
+        title: 'Eltingville',
+    }).addTo(map).bindPopup("<h1>Eltingville</h1> <p> A vital transit hub of South Shore Staten Island, with connection to the Eltingville Transit Center, serving bus routes within and out of Staten Island. It is also home to a business improvement district known as the South Shore BID.</p> <img src='eltingville1.jpg' style='width:300px; height:auto;'/>");
+    
+    var StGeorge = L.marker([40.643748,-74.073643], {
+        icon:icon4,
+        title: 'St George Terminal',
+        
+    }).addTo(map).bindPopup( "<h1>St George Terminal</h1> <p> An important transit hub of Staten Island, serving Staten Island Railway, Staten Island Ferry, and MTA NYC Bus Service.</p> <img src='st_george1.jpg' style='width:300px; height:auto;'/>");
+
+    var Richmond_Valley = L.marker([40.519631,-74.229141], {
+        icon:icon4,
+        title: 'Richmond Valley',
+    }).addTo(map).bindPopup( "<h1>Richmond Valley</h1> <p> One of the most rural and unique stations in the NYC Subway System. The station represents a part of Staten Islands rural past.</p> <img src='richmond_valley7.jpg' style='width:300px; height:auto;'/>");
+
+    var Clifton = L.marker([40.621319,-74.071402], {
+        icon:icon4,
+        title: 'Clifton',
+    }).addTo(map).bindPopup("<h1>Clifton</h1> <p> The current home of the Clifton Maintenance Depot, which is in charge of conducting repairs on the SIR fleet. Historically, it was a transfer point to the - now defunct - South Beach Line, connecting some of the densest neighborhoods in the borough.</p> <img src='clifton.jpg' style='width:300px; height:auto;'/>")
+var Bachman = L.marker([40.616667, -74.071667], {
+        icon:icon3,
+        title: 'Bachman',
+}).addTo(map).bindPopup("<h1>Bachman (1886 - 1937)</h1> <img src='bachmans.jpg' style='width:300px; height:auto;'/>");
+
+var Rosebank = L.marker([40.614639, -74.070278], {
+    icon:icon3,
+    title: 'Rosebank',
+}).addTo(map).bindPopup("<h1>Rosebank (1886 - 1953)</h1> <img src='rosebank.jpg' style='width:300px; height:auto;'/>");
+
+var Belair_Rd = L.marker([40.610278, -74.067222], {
+    icon:icon3,
+    title: 'Belair Road',
+}).addTo(map).bindPopup("<h1>Belair Road (1886 - 1953)</h1> <img src='belair.jpg' style='width:300px; height:auto;'/>");
+
+var Fort_Wads = L.marker([40.606972, -74.066472], {
+    icon:icon3,
+    title: 'Fort Wadsworth',
+}).addTo(map).bindPopup("<h1>Fort Wadsworth (1886 - 1953)</h1> <img src='wadsworth.jpg' style='width:300px; height:auto;'/>");
+
+var Arrochar = L.marker([40.599722, -74.066528], {
+    icon:icon3,
+    title: 'Arrochar',
+}).addTo(map).bindPopup("<h1>Arrochar (1886 - 1953)</h1> <img src='arrochar.jpg' style='width:300px; height:auto;'/>");
+
+var Cedar = L.marker([40.596583, -74.065639], {
+    icon:icon3,
+    title:'Cedar Avenue',
+}).addTo(map).bindPopup("<h1>Cedar Avenue (1931 - 1953)</h1> <img src='cedar.jpg' style='width:300px; height:auto;'/>");
+
+var SouthBeach = L.marker([40.590972, -74.067639], {
+    icon:icon3,
+    title: 'South Beach',
+
+}).addTo(map).bindPopup("<h1>South Beach (1890 - 1953)</h1> <img src='SouthBeach.jpg' style='width:200px; height:auto;'/>");
+
+var Wentworth = L.marker([40.589028, -74.069861], {
+    icon:icon3,
+    title: 'Wentworth Avenue',
+}).addTo(map).bindPopup("<h1>Wentworth Avenue (1925 - 1953)</h1> <img src='wentworth.jpg' style='width:300px; height:auto;'/>");
+
+var keystations = {
+    'Tottenville':Tottenville,
+    'Eltingville':Eltingville,
+    'Saint George':StGeorge
+};
+var transitLayers = {
+    'SIR Main Line': subwayLine,
+    'North Shore Branch': subwayline2,
+    'South Beach Branch': subwayline3, 
+    'SI - Brooklyn Proposed Subway':subwayline4,
+    'SI - Jersey Proposed Light Rail Connection':subwayLine5
+};
+
+    var STATENISLAND = L.geoJSON(BOROUGH, {style: SI_color}).addTo(map);
+
+// Add everything to the map so it's visible by default
+Tottenville.addTo(map);
+Eltingville.addTo(map);
+StGeorge.addTo(map);
+var LayerController = L.control.layers(null,transitLayers,keystations).addTo(map); 
+var njtstations = L.geoJSON(njtstations, {
+    pointToLayer: function(feature,coordinates){
+        return L.marker(coordinates,{icon:icon3});
+    },
+    onEachFeature: function(feature,layer){if (feature.properties && feature.properties.name){layer.bindPopup(feature.properties.name);
+
+    }
+    }
+    }).addTo(map);    
+
+
+var stations =L.geoJSON(stations, {
+        pointToLayer: function(feature,latlng){
+            return L.marker(latlng,{icon:icon3});
+        },
+    onEachFeature: function(feature,layer){if (feature.properties && feature.properties.stop_name){layer.bindPopup(feature.properties.stop_name);
+    }
+    }    
+    }).addTo(map);
+
+    var northshore_stations = L.geoJSON(northshore_stations,{
+        pointToLayer: function(feature,coordinates){
+            return L.marker(coordinates,{icon:icon3});
+        },
+    onEachFeature: function(feature,layer){if (feature.properties && feature.properties.name){layer.bindPopup(feature.properties.name);
+    }
+    }
+    }).addTo(map);
+     
+     
+
+
+//brk
     L.Control.Watermark=L.Control.extend({
             onAdd:function(map){
                 var img = L.DomUtil.create('img');
-                img.src = 'logog.png';
-                img.style.width = '200px';
+                img.src = 'legend.svg';
+                img.style.width = '400px';
                 return img;
                 },
                 onRemove:function(map){},
@@ -93,7 +583,7 @@ var bottomControl = L.Control.extend({
         // Create a div container
         var container = L.DomUtil.create('div', 'bottom-margin-container');
         container.innerHTML = `
-            <img src="legend.png" style="max-width: 100px;">
+            <img src="legend.svg" style="max-width: 100px;">
             <p style="font-size: 20px; margin: 0;">Legend Markers</p>
         `;
         return container;
@@ -101,104 +591,25 @@ var bottomControl = L.Control.extend({
 });
 
 // Add the custom control to the map
-map.addControl(new bottomControl());
-
-
-
-
-
-
-
-
-                
-    
-    
-    
-    
-    // Markers
-    var icon1 = L.icon ({
-        iconUrl: 'icon.png',
-        iconSize: [15,15],
-
-     }) 
-    var icon2 = L.icon ({
-        iconUrl: 'maintrainsithub.png',
-        iconSize: [25,25],
-    })
-
     // Bororugh Popups
-    var bronx = L.marker([40.8448,-73.8648],{icon:icon1});
-    var popup= bronx.bindPopup('Served by MTA NYC Transit, Metro North, NYC Ferry, and WCDOT.');
-    var queens = L.marker([40.7282,-73.7949],{icon:icon1});
-    var popup = queens.bindPopup('Served by MTA NYC Transit, LIRR, NYC Ferry, and NICE Transit.');
-    var manhattan = L.marker([40.7685,-73.9822],{icon:icon1});
-    var popup = manhattan.bindPopup('Served by all MTA transit agencies, NYC Ferry, PATH, NJTRANSIT, Amtrak, NYCDOT, Greyhound & Coach USA.');
-    var brooklyn = L.marker([40.6782,-73.9442],{icon:icon1});
-    var popup = brooklyn.bindPopup('Served by MTA NYC Transit, LIRR, and NYC Ferry.');
-    var statenisland = L.marker([40.579021, -74.151535],{icon:icon1});
-    var popup = statenisland.bindPopup('Served by MTA NYC Transit, MTA Staten Island Railway, NYC Ferry, and NYCDOT.');
-    var Boroughs = L.layerGroup([manhattan,bronx,brooklyn,queens,statenisland]);
-    // Legend Markers
-    var StGeorge_terminal = L.marker([40.642351, -74.075126],{icon:icon2});
-    var popup= StGeorge_terminal.bindPopup("St George Terminal");
-    var GrandCentral = L.marker([40.752655, -73.977295],{icon:icon2});
-    var popup= GrandCentral.bindPopup('Grand Central');
-    var BryantPark = L.marker([40.7542,-73.9846],{icon:icon2});
-    var popup= BryantPark.bindPopup('Bryant Park');
-    var PennStation = L.marker([40.750580,-73.993584],{icon:icon2});
-    var popup = PennStation.bindPopup('Penn Station');
-    var West4 = L.marker([40.731682, -74.000945],{icon:icon2});
-    var popup = West4.bindPopup('West 4th - Washington Square');
-    var JaySt_Metrotech = L.marker([40.693681, -73.987233],{icon:icon2});
-    var popup= JaySt_Metrotech.bindPopup('Jay Street - Metrotech');
-    var ConeyIsland = L.marker([40.577222, -73.981111],{icon:icon2});
-    var popup= ConeyIsland.bindPopup('Coney Island - Stillwell Avenue');
-    var QueensboroPlaza = L.marker([40.750653, -73.940344],{icon:icon2});
-    var popup= QueensboroPlaza.bindPopup('Queensboro Plaza');
-    var Unionsq = L.marker([40.734722, -73.990278],{icon:icon2});
-    var popup= Unionsq.bindPopup('14th Street Union Square');
-    var Transit_Hubs = L.layerGroup([West4, Unionsq, PennStation, GrandCentral,BryantPark, QueensboroPlaza, JaySt_Metrotech, ConeyIsland, StGeorge_terminal]);
-
     // osm layer
     
 
     var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     });
-    var topomap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-})
+
 
 osm.addTo(map);
+L.Control.geocoder().addTo(map);
 
 topomap.addTo(map);
 
+
     // Layer Controller
 
-    var baseMaps = {
-    "OpenStreetMap": osm,
-    "Topography": topomap,
-};
 
-var overlayMaps = {
-    "Boroughs" :Boroughs,
-    "Transit Hubs":Transit_Hubs,
-};
-
-L.control.layers(baseMaps,overlayMaps).addTo(map);
-
-map.on('overlayadd', function(e){
-    var strDiv = '#'+stripSpaces(e.name)
-    alert('\"'+strDiv+'".show()');
+    document.getElementById("toggle-btn").addEventListener("click", function () {
+    document.getElementById("info-panel").classList.toggle("collapsed");
 });
-
-map.on('overlayremove', function(e){
-    var strDiv = '#'+stripSpaces(e.name)
-    alert('"'+strDiv+'".hide()');
-});
-
-function stripSpaces(str) {
-    return str.replace(/\s+/g, '');
-}
-
 </script>

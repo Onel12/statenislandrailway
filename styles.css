@@ -649,7 +649,12 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	margin-left: -12px;
 	border-right-color: #fff;
 	}
-
+.leaflet-popup-content .custom-popup {
+		background-color: blue;
+		padding: 10px;
+		color: white; /* Optional: for better readability */
+		border-radius: 5px;
+	}
 /* Printing */
 
 @media print {
