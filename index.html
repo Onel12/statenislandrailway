@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NYC TRANSIT MAP</title>
+    <title>NYC TRANSIT MAP</title>
 
     <!--leaflet css-->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -272,6 +273,9 @@
 <script src="img_21973.jpg"></script>
 <script src="tottenvilletrain.jpg"></script>
 <script src="sirlogo.png"></script>
+<script src="Subway_Stations.js"></script>
+<script src="ICON2.png"></script>
+
 <script>
 
 
@@ -561,6 +565,48 @@ var stations =L.geoJSON(stations, {
 
 
 //brk
+    // Map Intialization
+    var map = L.map('map').setView([40.7128, -74.0060], 13);
+    var icon3 = L.icon({
+        iconUrl: 'ICON2.png',
+        iconSize: [10,10],
+    })
+    var stations =L.geoJSON(stations, {
+        pointToLayer: function(feature,latlng){
+            return L.marker(latlng,{icon:icon3});
+        }
+    }).addTo(map);
+    
+    var SI_color = {
+        color: "black",
+        fillColor: "red",
+        fillOpacity: 0.2
+    }
+    var STATENISLAND = L.geoJSON(BOROUGH, {style: SI_color}).bindPopup('Staten Island, NYC').addTo(map);
+    var BK_color = {
+        color: "black",
+        fillColor: "green",
+        fillOpacity: 0.2
+    }
+    var BROOKLYN = L.geoJSON(brooklyn, {style: BK_color}).bindPopup('Brooklyn, NYC').addTo(map);
+    var BX_color = {
+        color: 'black',
+        fillColor: 'yellow',
+        fillOpacity: 0.2
+    }      
+    var bronx = L.geoJSON(bronx, {style: BX_color}).bindPopup('Bronx, NYC').addTo(map);
+    var Q_color = {
+        color: "black",
+        fillColor: "purple",
+        fillOpacity: 0.2
+    }    
+    var queens = L.geoJSON(queens, {style: Q_color}).bindPopup('Queens, NYC').addTo(map);
+    var M_color = {
+        color: "black",
+        fillColor: "pink",
+        fillOpacity: 0.2
+    }  
+    var manhattan = L.geoJSON(manhattan, {style: M_color}).bindPopup('Manhattan, NYC').addTo(map);
     L.Control.Watermark=L.Control.extend({
             onAdd:function(map){
                 var img = L.DomUtil.create('img');
@@ -591,6 +637,30 @@ var bottomControl = L.Control.extend({
 });
 
 // Add the custom control to the map
+map.addControl(new bottomControl());
+
+
+
+
+
+
+
+
+                
+    
+    
+    
+    
+    // Markers
+    var icon1 = L.icon ({
+        iconUrl: 'icon.png',
+        iconSize: [15,15],
+
+     }) 
+    var icon2 = L.icon ({
+        iconUrl: 'maintrainsithub.png',
+        iconSize: [25,25],
+    })
     // Bororugh Popups
     // osm layer
     
@@ -599,11 +669,16 @@ var bottomControl = L.Control.extend({
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     });
 
+    var topomap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+})
+
 
 osm.addTo(map);
 L.Control.geocoder().addTo(map);
 
 topomap.addTo(map);
+
 
 
     // Layer Controller
@@ -612,4 +687,30 @@ topomap.addTo(map);
     document.getElementById("toggle-btn").addEventListener("click", function () {
     document.getElementById("info-panel").classList.toggle("collapsed");
 });
+    var baseMaps = {
+    "OpenStreetMap": osm,
+    "Topography": topomap,
+};
+
+var overlayMaps = {
+    "Served By" :Boroughs,
+    "Transit Hubs":Transit_Hubs,
+};
+
+L.control.layers(baseMaps,overlayMaps).addTo(map);
+
+map.on('overlayadd', function(e){
+    var strDiv = '#'+stripSpaces(e.name)
+    alert('\"'+strDiv+'".show()');
+});
+
+map.on('overlayremove', function(e){
+    var strDiv = '#'+stripSpaces(e.name)
+    alert('"'+strDiv+'".hide()');
+});
+
+function stripSpaces(str) {
+    return str.replace(/\s+/g, '');
+}
+
 </script>
